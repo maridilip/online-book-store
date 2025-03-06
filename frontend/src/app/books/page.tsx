@@ -1,6 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useCart } from "../../context/CartContext";
+import ProtectedRoute from "../../components/ProtectedRoute"; // Import the ProtectedRoute
+
 // Define the Book type
 interface Book {
     id: number;
@@ -29,6 +31,7 @@ export default function BooksPage() {
   }, []);
 
   return (
+    <ProtectedRoute>
     <div>
       <h2>Available Books 📚</h2>
       <div style={{ display: "flex", gap: "20px", flexWrap: "wrap" }}>
@@ -48,5 +51,6 @@ export default function BooksPage() {
         ))}
       </div>
     </div>
+    </ProtectedRoute>
   );
 }

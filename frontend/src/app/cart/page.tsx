@@ -1,14 +1,12 @@
 "use client";
 import { useAuth } from "../../context/AuthContext";
 import { useCart } from "../../context/CartContext";
-
-import { useRouter } from "next/router"; // Import useRouter
- // Import useAuth
+import { useRouter } from "next/router";
 
 export default function CartPage() {
   const { cart, removeFromCart, updateQuantity } = useCart();
-  const { isAuthenticated } = useAuth(); // Get authentication status
-  const router = useRouter(); // Get router instance
+  const { isAuthenticated } = useAuth();
+  const router = useRouter();
 
   // Redirect to login if not authenticated
   if (!isAuthenticated) {

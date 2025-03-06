@@ -1,7 +1,9 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useCart } from "../context/CartContext"; // Update the import path
-
+import { auth } from "../lib/firebase";
+import { onAuthStateChanged } from "firebase/auth";
+import { useRouter } from "next/navigation";
 interface Book {
   id: number;
   title: string;
@@ -13,8 +15,18 @@ interface Book {
 const HomePage = () => {
   const { cart, addToCart, removeFromCart } = useCart();
   const [books, setBooks] = useState<Book[]>([]);
-
+  const [user, setUser] = useState(null);
+  const router = useRouter();
   useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      if (!currentUser) {
+        router.push("/login"); // Redirect if not logged in
+      } else {
+        setUser(currentUser);
+      }
+    });
+
+    
     const fetchBooks = async () => {
       try {
         const response = await fetch(
@@ -35,8 +47,11 @@ const HomePage = () => {
     };
 
     fetchBooks();
+    return () => unsubscribe();
   }, []);
-
+  if (!user) {
+    return <p>Redirecting to login...</p>;
+  }
   return (
     <div className="container mt-5">
       <h2 className="mb-4">Available Books 📚</h2>
