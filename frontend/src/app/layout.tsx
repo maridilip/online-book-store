@@ -1,4 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
+
+import { AuthProvider } from "../context/AuthContext";
 import { CartProvider } from "../context/CartContext";
 
 import Link from "next/link";
@@ -16,9 +18,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <Link href="/books" style={{ marginRight: "20px", color: "#fff" }}>Books</Link>
           <Link href="/login" style={{ color: "#fff" }}>Login</Link>
         </nav>
-        <CartProvider>
-          {children} {/* Your pages will be wrapped with CartProvider */}
-        </CartProvider>
+        <AuthProvider>
+          <CartProvider>{children}</CartProvider>
+        </AuthProvider>
       </body>
     </html>
   );

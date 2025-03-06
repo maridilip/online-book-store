@@ -1,6 +1,6 @@
 "use client";
-import ProtectedRoute from "@/components/ProtectedRoute";
-import LogoutButton from "@/components/LogoutButton";
+import ProtectedRoute from "../../components/ProtectedRoute";
+import LogoutButton from "../../components/LogoutButton";
 
 export default function Dashboard() {
   return (

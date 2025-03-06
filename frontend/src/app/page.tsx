@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useCart } from "../context/CartContext"; // Update the import path
 
 interface Book {
-  id: string;
+  id: number;
   title: string;
   author: string;
   price: number;
@@ -22,7 +22,7 @@ const HomePage = () => {
         );
         const data = await response.json();
         const booksData = data.items.map((item: any) => ({
-          id: item.id,
+          id: parseInt(item.id, 10),
           title: item.volumeInfo.title,
           author: item.volumeInfo.authors?.[0] || "Unknown Author",
           price: Math.floor(Math.random() * 500) + 100, // Random price for demo
